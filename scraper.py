@@ -14,8 +14,10 @@ menuUrl = "http://menu.ha.ucla.edu/foodpro/default.asp"
 page = requests.get(menuUrl)
 #utilizes requests/tree to scrape
 soup = bs4.BeautifulSoup(page.text)
+#uses class tag to determine menu items 
 links = soup.select('div.menucontent a[class="itemlinkt"]')
 
+#IGNORE THIS, THIS IS OLD USELESS CODE THAT I PROBABLY SHOULD GET RID OF
 menuItemsXPath = ('//div[@id="globalwrapper"]/div[@class="divider_menu"]' + 
                     '/div[@class="menucontent"]' + 
                     #'/table[@class="menugridtable' + str(mealCont) + '"]' + 
@@ -29,18 +31,13 @@ menuItemsXPath = ('//div[@id="globalwrapper"]/div[@class="divider_menu"]' +
 def getMenuItems():
   return [a.get_text() for a in links]
 
+#ignore this too
 def mealXPath (): 
   tree = html.fromstring(page.text)  
   return tree.xpath(menuItemsXPath)
 
-
-menuCont = { 1: "", 2: "_last" } 
-
 #firstHalf = tree.xpath(mealXPath(''))
-secondHalf = mealXPath()
+#secondHalf = mealXPath()
 
 if __name__ == "__main__":
-  #print str(firstHalf)
-  #print str(secondHalf)
-  #print str(tree)
   print getMenuItems()
